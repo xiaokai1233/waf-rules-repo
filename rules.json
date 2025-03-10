@@ -1,0 +1,16 @@
+[
+    {
+        "name": "SQL 注入",
+        "rule_type": "PARAM",
+        "pattern": "union select",
+        "description": "防止 SQL 注入",
+        "is_active": true
+    },
+    {
+        "name": "XSS 攻击",
+        "rule_type": "PARAM",
+        "pattern": "<script>",
+        "description": "防止 XSS 攻击",
+        "is_active": true
+    }
+]
