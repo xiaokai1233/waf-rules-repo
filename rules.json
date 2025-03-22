@@ -1,16 +1,164 @@
 [
     {
-        "name": "SQL 注入",
+        "name": "SQL 注入 - UNION SELECT",
         "rule_type": "PARAM",
         "pattern": "union select",
-        "description": "防止 SQL 注入",
+        "description": "检测 UNION SELECT 注入攻击",
         "is_active": true
     },
     {
-        "name": "XSS 攻击",
+        "name": "SQL 注入 - 注释符",
         "rule_type": "PARAM",
-        "pattern": "<script>",
-        "description": "防止 XSS 攻击",
+        "pattern": "--|#|\\/\\*",
+        "description": "检测 SQL 注释符攻击",
+        "is_active": true
+    },
+    {
+        "name": "SQL 注入 - 布尔盲注",
+        "rule_type": "PARAM",
+        "pattern": "1=1|1=0",
+        "description": "检测布尔盲注攻击",
+        "is_active": true
+    },
+    {
+        "name": "SQL 注入 - 时间盲注",
+        "rule_type": "PARAM",
+        "pattern": "sleep\\(|waitfor delay",
+        "description": "检测时间盲注攻击",
+        "is_active": true
+    }
+        {
+        "name": "XSS 攻击 - 脚本标签",
+        "rule_type": "PARAM",
+        "pattern": "<script>|</script>",
+        "description": "检测脚本标签注入",
+        "is_active": true
+    },
+    {
+        "name": "XSS 攻击 - 事件属性",
+        "rule_type": "PARAM",
+        "pattern": "onerror=|onload=",
+        "description": "检测事件属性注入",
+        "is_active": true
+    },
+    {
+        "name": "XSS 攻击 - JavaScript URL",
+        "rule_type": "PARAM",
+        "pattern": "javascript:",
+        "description": "检测 JavaScript URL 注入",
+        "is_active": true
+    },
+    {
+        "name": "XSS 攻击 - HTML 实体",
+        "rule_type": "PARAM",
+        "pattern": "&lt;|&gt;|&quot;",
+        "description": "检测 HTML 实体编码注入",
+        "is_active": true
+    }
+        {
+        "name": "文件包含 - 路径遍历",
+        "rule_type": "PARAM",
+        "pattern": "\\.\\.\\/|\\.\\.\\\\",
+        "description": "检测路径遍历攻击",
+        "is_active": true
+    },
+    {
+        "name": "文件包含 - PHP 包含函数",
+        "rule_type": "PARAM",
+        "pattern": "include\\(|require\\(",
+        "description": "检测 PHP 文件包含攻击",
+        "is_active": true
+    },
+    {
+        "name": "文件包含 - 远程文件",
+        "rule_type": "PARAM",
+        "pattern": "http:\\/\\/|https:\\/\\/",
+        "description": "检测远程文件包含攻击",
+        "is_active": true
+    }
+        {
+        "name": "命令注入 - 分号",
+        "rule_type": "PARAM",
+        "pattern": ";|\\|\\||&&",
+        "description": "检测命令注入攻击",
+        "is_active": true
+    },
+    {
+        "name": "命令注入 - 反引号",
+        "rule_type": "PARAM",
+        "pattern": "`",
+        "description": "检测反引号命令注入",
+        "is_active": true
+    },
+    {
+        "name": "命令注入 - 管道符",
+        "rule_type": "PARAM",
+        "pattern": "\\|",
+        "description": "检测管道符命令注入",
+        "is_active": true
+    }
+        {
+        "name": "敏感信息 - 身份证号",
+        "rule_type": "RESPONSE",
+        "pattern": "\\d{17}[\\dXx]",
+        "description": "检测身份证号泄露",
+        "is_active": true
+    },
+    {
+        "name": "敏感信息 - 手机号",
+        "rule_type": "RESPONSE",
+        "pattern": "1[3-9]\\d{9}",
+        "description": "检测手机号泄露",
+        "is_active": true
+    },
+    {
+        "name": "敏感信息 - 邮箱地址",
+        "rule_type": "RESPONSE",
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "description": "检测邮箱地址泄露",
+        "is_active": true
+    }
+        {
+        "name": "文件上传 - 可执行文件",
+        "rule_type": "FILE",
+        "pattern": "\\.(php|jsp|asp|exe|sh)$",
+        "description": "检测可执行文件上传",
+        "is_active": true
+    },
+    {
+        "name": "文件上传 - 隐藏文件",
+        "rule_type": "FILE",
+        "pattern": "^\\.|\\.\\.\\/",
+        "description": "检测隐藏文件上传",
+        "is_active": true
+    },
+    {
+        "name": "文件上传 - 超大文件",
+        "rule_type": "FILE",
+        "pattern": ".*",
+        "description": "检测超过 10MB 的文件上传",
+        "is_active": true,
+        "max_size": 10485760  # 10MB
+    }
+        {
+        "name": "CSRF 攻击 - Token 缺失",
+        "rule_type": "HEADER",
+        "pattern": "^$",
+        "description": "检测 CSRF Token 缺失",
+        "is_active": true
+    },
+    {
+        "name": "SSRF 攻击 - 内网地址",
+        "rule_type": "PARAM",
+        "pattern": "(127\\.0\\.0\\.1|localhost|192\\.168|10\\.|172\\.(1[6-9]|2[0-9]|3[0-1]))",
+        "description": "检测 SSRF 攻击",
+        "is_active": true
+    },
+    {
+        "name": "目录遍历 - 敏感路径",
+        "rule_type": "PARAM",
+        "pattern": "(\\/etc\\/|\\/bin\\/|\\/root\\/)",
+        "description": "检测敏感路径访问",
         "is_active": true
     }
 ]
